@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 const pal_it = require("./helpers/helper");
 const app = express();
 const paletteRoute = require("./routes/palette");
@@ -7,5 +8,6 @@ app.use(cors());
 app.options("*", cors());
 app.use(express.json());
 app.use("/api/palette", paletteRoute);
-
+app.use("/", express.static(path.join(__dirname, "public")));
+app.use("/photos", express.static(path.join(__dirname, "public/img")));
 module.exports = app;

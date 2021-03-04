@@ -47,7 +47,7 @@ class PaletteBuilder {
       ctx.fill();
     });
     fs.writeFileSync(
-      path.join(__dirname, `../imgs/${palette[0]}.png`),
+      path.join(__dirname, `../public/img/${palette[0]}.png`),
       canvas.toBuffer("image/png")
     );
   }
@@ -67,7 +67,7 @@ class PaletteBuilder {
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     fs.writeFileSync(
-      path.join(__dirname, `../imgs/${palette[0]}-gradient.png`),
+      path.join(__dirname, `../public/img/${palette[0]}-gradient.png`),
       canvas.toBuffer("image/png")
     );
   }
