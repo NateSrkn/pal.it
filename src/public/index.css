@@ -1,0 +1,29 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+h1 {
+  margin-left: 20px;
+}
+.img-grid {
+  margin: 10px 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 20px;
+}
+
+.img-wrapper {
+  display: flex;
+  position: relative;
+  width: 250px;
+}
+
+img {
+  flex: 1;
+  display: block;
+  height: 100%;
+  width: 100%;
+}
