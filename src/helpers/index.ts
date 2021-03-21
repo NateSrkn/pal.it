@@ -1,27 +1,17 @@
-import { Pixels } from "../types";
+import { Pixels } from "../types/image";
+import { ICreateElement, IUpdateElement } from "../types/general";
 
-interface IElement {
-  el: string;
-  attributes?: {
-    id?: string | null;
-    className?: string | null;
-    [key: string]: any;
-  };
-  children?: Array<IElement | HTMLElement>;
-}
-
-export const createElement = ({
-  el = "div",
-  attributes = { id: null, className: null },
-  children = [],
-}: IElement): HTMLElement => {
+export const createElement = (
+  options: ICreateElement = { attributes: {}, children: [] }
+): HTMLElement => {
+  const { el = "div", attributes, children } = options;
   const element: HTMLElement = Object.assign(
     document.createElement(el),
     attributes
   );
-  if (children.length) {
+  if (children?.length) {
     for (let i = 0, { length } = children; i < length; i++) {
-      const child: IElement | HTMLElement = children[i];
+      const child: ICreateElement | HTMLElement = children[i];
       if (child instanceof HTMLElement) {
         element.appendChild(child);
       } else {
@@ -32,11 +22,25 @@ export const createElement = ({
   return element;
 };
 
-export const rgbToHex = (rgb = [0, 0, 0]): string => {
-  const [red, green, blue] = rgb;
-  return `#${((1 << 24) + (red << 16) + (green << 8) + blue)
-    .toString(16)
-    .slice(1, 7)}`;
+export const updateElement = (options: IUpdateElement): HTMLElement => {
+  const { el, attributes = {}, children = [] } = options;
+  const element: HTMLElement = Object.assign(el, attributes);
+  if (children.length) {
+    for (let i = 0, { length } = children; i < length; i++) {
+      const child: ICreateElement | HTMLElement = children[i];
+      if (child instanceof HTMLElement) {
+        element.appendChild(child);
+      } else {
+        element.appendChild(createElement({ ...child }));
+      }
+    }
+  }
+  return element;
+};
+
+export const domtool = {
+  create: createElement,
+  update: updateElement,
 };
 
 export const extractColorArray = (

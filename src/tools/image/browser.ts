@@ -1,5 +1,5 @@
 import { BaseImage } from "./base";
-import { ImageSource, ImageData } from "../../types";
+import { ImageSource, ImageData } from "../../types/image";
 import { createElement } from "../../helpers/index";
 
 export class BrowserImage extends BaseImage {
@@ -9,10 +9,16 @@ export class BrowserImage extends BaseImage {
   height: number;
   width: number;
   async loadImage(src: ImageSource) {
-    const image = <HTMLImageElement>createElement({
-      el: "img",
-      attributes: { src, crossOrigin: "anonymous" },
-    });
+    let image: HTMLImageElement;
+    if (src instanceof HTMLImageElement) {
+      src.crossOrigin = "anonymous";
+      image = src;
+    } else {
+      image = <HTMLImageElement>createElement({
+        el: "img",
+        attributes: { src, crossOrigin: "anonymous" },
+      });
+    }
     this.image = image;
     return new Promise<BaseImage>((res, rej) => {
       const onImageLoad = () => {

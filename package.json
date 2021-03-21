@@ -18,7 +18,8 @@
   },
   "scripts": {
     "build": "npm run build:browser && npm run build:node",
-    "build:dev": "npm run build:browser:dev && npm run build:node",
+    "build:dev": "npm run clean && npm run build:browser:dev && npm run build:node",
+    "clean": "rm -rf ./dist",
     "build:browser": "webpack --config webpack.config.js --mode production",
     "build:browser:dev": "webpack --config webpack.config.js --mode development",
     "build:node": "tsc",

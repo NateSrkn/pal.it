@@ -1,6 +1,6 @@
 import { BaseImage } from "./base";
 import Jimp from "jimp/es";
-import { ImageSource, Image } from "../../types";
+import { ImageSource, Image } from "../../types/image";
 
 export class NodeImage extends BaseImage {
   private image: InstanceType<typeof Jimp>;
